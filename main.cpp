@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "./interest/Interest.h"
+#include "./commuter_benefit/CommuterBenefit.h"
 
 
 int main() {
@@ -19,5 +20,8 @@ int main() {
         str.append(recCap);
         std::cout << str << std::endl;
     }
+    CommuterBenefit benefit(225, 58);
+    float calculatedBenefit = benefit.calculateBenefit();
+    std::cout << calculatedBenefit << std::endl;
     return 0;
 }

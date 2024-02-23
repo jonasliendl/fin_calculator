@@ -9,5 +9,6 @@ add_executable(fin_calculator main.cpp
         interest/InterestItem.h
         interest/InterestMap.h
         interest/Interest.cpp
-        dynamic_array/DynamicArray.h
-        dynamic_array/DynamicArray.cpp)
+        commuter_benefit/CommuterBenefit.h
+        commuter_benefit/CommuterBenefit.cpp
+        commuter_benefit/CommuterBenefit.h)
