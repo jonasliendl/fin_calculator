@@ -11,4 +11,6 @@ add_executable(fin_calculator main.cpp
         interest/Interest.cpp
         commuter_benefit/CommuterBenefit.h
         commuter_benefit/CommuterBenefit.cpp
-        commuter_benefit/CommuterBenefit.h)
+        commuter_benefit/CommuterBenefit.h
+        yield/Yield.h
+        yield/Yield.cpp)

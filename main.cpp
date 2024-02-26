@@ -2,6 +2,7 @@
 #include <string>
 #include "./interest/Interest.h"
 #include "./commuter_benefit/CommuterBenefit.h"
+#include "./yield/Yield.h"
 
 
 int main() {
@@ -23,5 +24,10 @@ int main() {
     CommuterBenefit benefit(225, 58);
     float calculatedBenefit = benefit.calculateBenefit();
     std::cout << calculatedBenefit << std::endl;
+    Yield yield(10000.0, 20000.0, 2017, 2023);
+    yield.calculate();
+    std::cout << yield.getYieldOverall() << std::endl;
+    std::cout << yield.getYieldPerAnno() << std::endl;
+    std::cout << 3.145 << std::endl;
     return 0;
 }
