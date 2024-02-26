@@ -13,18 +13,18 @@ using namespace std::chrono;
 
 class Yield {
 public:
-    Yield(float startValue, float endValue, unsigned int startYear, unsigned int endYear);
+    Yield(float startValue, float endValue, int startYear, int endYear);
     Yield(float startValue, float endValue);
-    Yield(float startValue, float endValue, unsigned int startYear);
+    Yield(float startValue, float endValue, int startYear);
     ~Yield();
     [[nodiscard]] float getStartValue() const;
     [[nodiscard]] float getEndValue() const;
-    [[nodiscard]] unsigned int getStartYear() const;
-    [[nodiscard]] unsigned int getEndYear() const;
+    [[nodiscard]] int getStartYear() const;
+    [[nodiscard]] int getEndYear() const;
     Yield* changeStartValue(float val);
     Yield* changeEndValue(float val);
-    Yield* changeStartYear(unsigned int year);
-    Yield* changeEndYear(unsigned int year);
+    Yield* changeStartYear(int year);
+    Yield* changeEndYear(int year);
     Yield* calculate();
     [[nodiscard]] double getYieldOverall() const;
     [[nodiscard]] double getYieldPerAnno() const;
@@ -32,14 +32,14 @@ private:
     bool didValuesChange;
     float startValue;
     float endValue;
-    unsigned int startYear;
-    unsigned int endYear;
+    int startYear;
+    int endYear;
     double yieldDataOverall;
     double yieldDataPerAnno;
     bool areYearsProvided;
     [[nodiscard]] double calculateYield() const;
-    [[nodiscard]] static double calculateYieldPerAnno(double overallYield, unsigned int startYear, unsigned int endYear) ;
-    static unsigned int calculateCurrentYear();
+    [[nodiscard]] static double calculateYieldPerAnno(double overallYield, int startYear, int endYear);
+    static int calculateCurrentYear();
 };
 
 #endif //FIN_CALCULATOR_YIELD_H

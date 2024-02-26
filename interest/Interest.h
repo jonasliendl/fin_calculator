@@ -11,29 +11,29 @@
 
 class Interest {
 public:
-    Interest(unsigned int startCapital, unsigned int monthlySavings, unsigned int years, float interestRate, PayInterval payInterval);
+    Interest(double startCapital, double monthlySavings, unsigned int years, double interestRate, PayInterval payInterval);
     ~Interest();
-    [[nodiscard]] unsigned int getStartCapital() const;
-    [[nodiscard]] unsigned int getMonthlySaving() const;
+    [[nodiscard]] double getStartCapital() const;
+    [[nodiscard]] double getMonthlySaving() const;
     [[nodiscard]] unsigned int getYears() const;
-    [[nodiscard]] float getInterestRate() const;
+    [[nodiscard]] double getInterestRate() const;
     [[nodiscard]] PayInterval getPayInterval();
-    Interest* changeStartCapital(unsigned int capital);
-    Interest* changeMonthlySaving(unsigned int saving);
-    Interest* changeYears(unsigned int savingYears);
-    Interest* changeInterestRate(float rate);
-    Interest* changePayInterval(PayInterval interval);
+    void changeStartCapital(double capital);
+    void changeMonthlySaving(double saving);
+    void changeYears(unsigned int savingYears);
+    void changeInterestRate(double rate);
+    void changePayInterval(PayInterval interval);
     InterestMap calculate();
 private:
-    unsigned int startCapital;
-    unsigned int monthlySaving;
+    double startCapital;
+    double monthlySaving;
     unsigned int years;
-    float interestRate;
+    double interestRate;
     PayInterval payInterval;
     bool didValuesChange;
     InterestMap data;
     InterestItem calculateForOneYear(InterestItem previousItem);
-    [[nodiscard]] unsigned int calculateOneUnit(unsigned int currentCapital) const;
+    [[nodiscard]] double calculateOneUnit(double currentCapital) const;
 };
 
 #endif //FIN_CALCULATOR_INTEREST_H

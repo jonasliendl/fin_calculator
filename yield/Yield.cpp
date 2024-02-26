@@ -2,10 +2,9 @@
 // Created by Jonas Liendl on 24.02.24.
 //
 #include "Yield.h"
-#include <iostream>
 #include <cmath>
 
-Yield::Yield(float startValue, float endValue, unsigned int startYear, unsigned int endYear) {
+Yield::Yield(float startValue, float endValue, int startYear, int endYear) {
     this->didValuesChange = true;
     this->startYear = startYear;
     this->endYear = endYear;
@@ -24,11 +23,11 @@ float Yield::getEndValue() const {
     return this->endValue;
 }
 
-unsigned int Yield::getStartYear() const {
+int Yield::getStartYear() const {
     return this->startYear;
 }
 
-unsigned int Yield::getEndYear() const {
+int Yield::getEndYear() const {
     return this->endYear;
 }
 
@@ -44,13 +43,13 @@ Yield *Yield::changeEndValue(float val) {
     return this;
 }
 
-Yield *Yield::changeStartYear(unsigned int year) {
+Yield *Yield::changeStartYear(int year) {
     this->startYear = year;
     this->didValuesChange = true;
     return this;
 }
 
-Yield *Yield::changeEndYear(unsigned int year) {
+Yield *Yield::changeEndYear(int year) {
     this->endYear = year;
     this->didValuesChange = true;
     return this;
@@ -83,26 +82,31 @@ Yield *Yield::calculate() {
 }
 
 Yield::Yield(float startValue, float endValue) {
-    this->didValuesChange = true;
-    this->areYearsProvided = false;
+    didValuesChange = true;
+    areYearsProvided = false;
+
     this->startValue = startValue;
     this->endValue = endValue;
-    unsigned int currentYear = Yield::calculateCurrentYear();
-    this->startYear = currentYear;
-    this->endYear = currentYear;
-    this->yieldDataOverall = 0.0;
-    this->yieldDataPerAnno = 0.0;
+
+    int currentYear = Yield::calculateCurrentYear();
+    startYear = currentYear;
+    endYear = currentYear;
+
+    yieldDataOverall = 0.0;
+    yieldDataPerAnno = 0.0;
 }
 
-Yield::Yield(float startValue, float endValue, unsigned int startYear) {
-    this->didValuesChange = true;
-    this->areYearsProvided = true;
+Yield::Yield(float startValue, float endValue, int startYear) {
+    didValuesChange = true;
+    areYearsProvided = true;
+
     this->startValue = startValue;
     this->endValue = endValue;
     this->startYear = startYear;
-    this->endYear = Yield::calculateCurrentYear();
-    this->yieldDataOverall = 0.0;
-    this->yieldDataPerAnno = 0.0;
+
+    endYear = Yield::calculateCurrentYear();
+    yieldDataOverall = 0.0;
+    yieldDataPerAnno = 0.0;
 }
 
 double Yield::getYieldOverall() const {
@@ -117,16 +121,16 @@ double Yield::calculateYield() const {
     return this->endValue / this->startValue - 1.0;
 }
 
-double Yield::calculateYieldPerAnno(double yieldOverall, unsigned int startYear, unsigned int endYear) {
+double Yield::calculateYieldPerAnno(double yieldOverall, int startYear, int endYear) {
     if (startYear == endYear) {
         return yieldOverall;
     }
-    int passedYears = (int) (endYear - startYear);
+    int passedYears = endYear - startYear;
     double performancePA = pow(1.0 + yieldOverall, 1.0 / passedYears);
     return performancePA - 1.0;
 }
 
-unsigned int Yield::calculateCurrentYear() {
+int Yield::calculateCurrentYear() {
     auto now = std::chrono::system_clock::now();
     std::time_t timeNow = std::chrono::system_clock::to_time_t(now);
     std::tm* localTime = std::localtime(&timeNow);

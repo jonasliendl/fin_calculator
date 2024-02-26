@@ -6,8 +6,8 @@
 #define FIN_CALCULATOR_INTERESTITEM_H
 
 struct InterestItem {
-    unsigned int deposit;
-    unsigned int interestReceived;
+    double deposit;
+    double interestReceived;
 };
 
 #endif //FIN_CALCULATOR_INTERESTITEM_H

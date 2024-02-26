@@ -4,120 +4,115 @@
 #include "Interest.h"
 #include <iostream>
 
-Interest::Interest(unsigned int startCapital, unsigned int monthlySaving, unsigned int years, float interestRate, PayInterval payInterval) {
+Interest::Interest(double startCapital, double monthlySaving, unsigned int years, double interestRate, PayInterval payInterval) {
     this->startCapital = startCapital;
     this->monthlySaving = monthlySaving;
     this->years = years;
     this->interestRate = interestRate;
     this->payInterval = payInterval;
 
-    this->didValuesChange = true;
+    didValuesChange = true;
 }
 
-unsigned int Interest::getStartCapital() const {
-    return this->startCapital;
+double Interest::getStartCapital() const {
+    return startCapital;
 }
 
-unsigned int Interest::getMonthlySaving() const {
-    return this->monthlySaving;
+double Interest::getMonthlySaving() const {
+    return monthlySaving;
 }
 
 unsigned int Interest::getYears() const {
-    return this->years;
+    return years;
 }
 
-float Interest::getInterestRate() const {
-    return this->interestRate;
+double Interest::getInterestRate() const {
+    return interestRate;
 }
 
 PayInterval Interest::getPayInterval() {
-    return this->payInterval;
+    return payInterval;
 }
 
-Interest* Interest::changeStartCapital(unsigned int capital) {
-    this->startCapital = capital;
-    this->didValuesChange = true;
-    return this;
+void Interest::changeStartCapital(double capital) {
+    startCapital = capital;
+    didValuesChange = true;
 }
 
-Interest *Interest::changeMonthlySaving(unsigned int saving) {
-    this->monthlySaving = saving;
-    this->didValuesChange = true;
-    return this;
+void Interest::changeMonthlySaving(double saving) {
+    monthlySaving = saving;
+    didValuesChange = true;
 }
 
-Interest *Interest::changeYears(unsigned int savingYears) {
-    this->years = savingYears;
-    this->didValuesChange = true;
-    return this;
+void Interest::changeYears(unsigned int savingYears) {
+    years = savingYears;
+    didValuesChange = true;
 }
 
-Interest *Interest::changeInterestRate(float rate) {
-    this->interestRate = rate;
-    this->didValuesChange = true;
-    return this;
+void Interest::changeInterestRate(double rate) {
+    interestRate = rate;
+    didValuesChange = true;
 }
 
-Interest *Interest::changePayInterval(PayInterval interval) {
-    this->payInterval = interval;
-    this->didValuesChange = true;
-    return this;
+void Interest::changePayInterval(PayInterval interval) {
+    payInterval = interval;
+    didValuesChange = true;
 }
 
 InterestMap Interest::calculate() {
-    if (this->didValuesChange) {
+    if (didValuesChange) {
         InterestMap interestMap{};
 
-        for (int i = 0; i < this->years; i++) {
+        for (int i = 0; i < years; i++) {
             InterestItem previousItem{};
             if (i == 0) {
-                previousItem = {this->startCapital, 0};
+                previousItem = {startCapital, 0};
             } else {
                 previousItem = interestMap[i - 1];
             }
-            InterestItem item = this->calculateForOneYear(previousItem);
+            InterestItem item = calculateForOneYear(previousItem);
             interestMap[i] = item;
         }
 
+        data = interestMap;
+
         return interestMap;
     } else {
-        return this->data;
+        return data;
     }
 }
 
 InterestItem Interest::calculateForOneYear(InterestItem previousItem) {
     int ITERATIONS = 1;
 
-    unsigned int savingPerMonth = this->monthlySaving;
+    double savingPerMonth = monthlySaving;
 
-    switch(this->payInterval) {
+    switch(payInterval) {
         case MONTHLY:
             ITERATIONS = 12;
             break;
         case QUARTERLY:
             ITERATIONS = 4;
-            savingPerMonth = this->monthlySaving / 6;
+            savingPerMonth = monthlySaving / 6;
             break;
         case YEARLY:
             ITERATIONS = 1;
-            savingPerMonth = this->monthlySaving / 12;
+            savingPerMonth = monthlySaving / 12;
             break;
     }
 
-    unsigned int currentCapital = previousItem.deposit + previousItem.interestReceived;
+    double currentCapital = previousItem.deposit + previousItem.interestReceived;
     for (int i = 0; i < ITERATIONS; i++) {
-        currentCapital = this->calculateOneUnit(currentCapital + savingPerMonth);
+        currentCapital = calculateOneUnit(currentCapital + savingPerMonth);
     }
-    const unsigned int gainedCapital = currentCapital - previousItem.deposit - (this->monthlySaving * 12);
-    const unsigned int depositCapital = previousItem.deposit + (12* this->monthlySaving);
+    const double gainedCapital = currentCapital - previousItem.deposit - (monthlySaving * 12);
+    const double depositCapital = previousItem.deposit + (12 * monthlySaving);
     return {depositCapital, gainedCapital};
 }
 
-unsigned int Interest::calculateOneUnit(unsigned int currentCapital) const {
-    float calculatedVal = ((float)currentCapital * (this->interestRate/100)) / 12;
-    unsigned int rndVal = (unsigned int)roundf(calculatedVal);
-    unsigned int finalCapital = rndVal + currentCapital;
-    return finalCapital;
+double Interest::calculateOneUnit(double currentCapital) const {
+    double calculatedVal = (currentCapital * (interestRate/100)) / 12;
+    return calculatedVal + currentCapital;
 }
 
 Interest::~Interest() = default;
