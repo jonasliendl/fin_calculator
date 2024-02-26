@@ -21,11 +21,11 @@ public:
     [[nodiscard]] float getEndValue() const;
     [[nodiscard]] int getStartYear() const;
     [[nodiscard]] int getEndYear() const;
-    Yield* changeStartValue(float val);
-    Yield* changeEndValue(float val);
-    Yield* changeStartYear(int year);
-    Yield* changeEndYear(int year);
-    Yield* calculate();
+    void changeStartValue(float val);
+    void changeEndValue(float val);
+    void changeStartYear(int year);
+    void changeEndYear(int year);
+    void calculate();
     [[nodiscard]] double getYieldOverall() const;
     [[nodiscard]] double getYieldPerAnno() const;
 private:
