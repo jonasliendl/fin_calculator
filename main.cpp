@@ -3,6 +3,7 @@
 #include "./interest/Interest.h"
 #include "./commuter_benefit/CommuterBenefit.h"
 #include "./yield/Yield.h"
+#include "./percent_calculator/PercentageCalculator.h"
 
 
 int main() {
@@ -22,12 +23,21 @@ int main() {
         std::cout << str << std::endl;
     }
     CommuterBenefit benefit(225, 58);
-    float calculatedBenefit = benefit.calculateBenefit();
+    double calculatedBenefit = benefit.calculateBenefit();
     std::cout << calculatedBenefit << std::endl;
-    Yield yield(10000.0, 20000.0, 2017, 2023);
+    Yield yield(10000.0, 20500.0, 2017, 2023);
     yield.calculate();
     std::cout << yield.getYieldOverall() << std::endl;
     std::cout << yield.getYieldPerAnno() << std::endl;
-    std::cout << 3.145 << std::endl;
+    PercentageCalculator percent;
+    percent.changeStartValue(2000.0);
+    percent.changeInterestRate(0.23);
+    double endValue = 0.0;
+    try {
+        endValue = percent.calculateEndValue();
+    } catch (std::exception& err) {
+        std::cout << err.what() << std::endl;
+    }
+    std::cout << endValue << std::endl;
     return 0;
 }

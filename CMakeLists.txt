@@ -13,4 +13,8 @@ add_executable(fin_calculator main.cpp
         commuter_benefit/CommuterBenefit.cpp
         commuter_benefit/CommuterBenefit.h
         yield/Yield.h
-        yield/Yield.cpp)
+        yield/Yield.cpp
+        percent_calculator/PercentageCalculator.h
+        percent_calculator/PercentageCalculator.cpp
+        exception/Exception.h
+        exception/Exception.cpp)
